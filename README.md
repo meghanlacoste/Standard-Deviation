@@ -32,7 +32,7 @@ public class StDeviation {
     //
     // You MUST write this method and I will use it during testing
     //
-    public void addNewDataItem(double dataItem){
+    public void addNewDataItem(int dataItem){
 
     }
 
