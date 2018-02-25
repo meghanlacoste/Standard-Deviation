@@ -1,17 +1,10 @@
 # Standard-Deviation
 package com.company;
 
-// ---------*---------*---------*---------*
-// The use of static imports is something that should be used carefully.
-// I have only ever used this technique for the project wide constants.
-//
-        import static com.company.ProjConstants.*;
+import static com.company.ProjConstants.*;
 
-/**
- * Created by Robert Hubert on 21/02/2018.
- */
+
 public class StDeviation {
-
 
     // ---------*---------*---------*---------*---------*---------*---------*---------*
     // As discussed in class we are using a class populated with Project Constants to
@@ -25,6 +18,7 @@ public class StDeviation {
     //         private int[] Data = new int[ProjConstants.MAXDATA];
     //
     private int[] Data = new int[MAXDATA];
+    private int currSize = 0;
 
     // ---------*---------*---------*---------*---------*---------*---------*---------*
     // The following method will take a new data item and add it into the 1 Dimensional
@@ -32,7 +26,12 @@ public class StDeviation {
     //
     // You MUST write this method and I will use it during testing
     //
-    public void addNewDataItem(int dataItem){
+    public void addNewDataItem(double dataItem) {
+        if (currSize >= MAXDATA) return;
+
+        int newData = (int) dataItem;
+        Data[getNumberOfDataItems()] = newData;
+        currSize++;
 
     }
 
@@ -41,10 +40,8 @@ public class StDeviation {
     //
     // You MUST write this method and I will use it during testing
     //
-    public int getNumberOfDataItems(){
-
-        // temporary value
-        return INVALID;
+    public int getNumberOfDataItems() {
+        return currSize;
     }
 
     // ---------*---------*---------*---------*---------*---------*---------*---------*
@@ -53,10 +50,15 @@ public class StDeviation {
     //
     // You MUST write this method and I will use it during testing
     //
-    public double calcAverage(){
+    public double calcAverage() {
+        double total = 0;
+        double theAverage = 0;
 
-        // temporary value
-        return INVALID;
+        for (int i = 0; i < currSize; i++) {
+            total += Data[i];
+        }
+        theAverage = total / currSize;
+        return theAverage;
     }
 
     // ---------*---------*---------*---------*---------*---------*---------*---------*
@@ -65,10 +67,16 @@ public class StDeviation {
     //
     // You MUST write this method and I will use it during testing
     //
-    public double calcVariance(){
+    public double calcVariance() {
+        double theAverage = calcAverage();
+        double total = 0;
+        double theVariance= 0;
+        for (int i = 0; i < currSize; i++) {
+            total += Math.pow(Data[i] - theAverage, 2);
+        }
+        theVariance = total / currSize;
 
-        // temporary value
-        return INVALID;
+        return theVariance;
     }
 
 
@@ -78,8 +86,9 @@ public class StDeviation {
     //
     // You MUST write this method and I will use it during testing
     //
-    public double calcStandardDeviation(){
+    public double calcStandardDeviation() {
 
-        // temporary value
-        return INVALID;
+        double theStDeviation = Math.pow(calcVariance(), 2);
+        return theStDeviation;
     }
+}
