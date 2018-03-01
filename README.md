@@ -19,6 +19,7 @@ public class Main {
         double theAverage = 0;
         double theVariance = 0;
         double theStDeviation = 0;
+        int counter = 0;
 
         StDeviation calcSDev =  new StDeviation();
 
@@ -27,65 +28,65 @@ public class Main {
                 System.out.println("");
                 System.out.println("Please type in the file name\n");
 
-        Scanner scanSystemIn = new Scanner(System.in);
+                Scanner scanSystemIn = new Scanner(System.in);
 
-        userFileName = scanSystemIn.next();
+                      userFileName = scanSystemIn.next();
 
         File userFile = new File("tempfilenums.txt");
+
         Scanner scanUserFile = new Scanner("tempfilenums.txt");
 
-    // Display the user input now stored in "userInput"
-    System.out.println("\nThe user input: " + userFileName);
-
-    try {
-
-        while (filedone == false){
-            //for(int counter =0; counter < MAXDATA; counter++) {
+          System.out.println("\nThe user input: " + userFileName);
 
 
-            if (scanUserFile.hasNext()) {
-                counter = scanUserFile.nextInt();
-                System.out.print(" - " + counter);
-
-                calcSDev.addNewDataItem(counter);
+        try {
 
 
-            }// end if
+             while (fileDone == false){
+                //for(int counter =0; counter < MAXDATA; counter++) {
 
-            else {
-                // ---------------------------------------------
-                // The scanner detected no other integers
-                // - closes the scanner for the file
-                // - breaks out of the for loop
-                //
-                System.out.println("==================================================================\n");
-                System.out.print("\n\nDataFileFILE has been completely READ");
-                scanUserFile.close();
-                System.out.println("==================================================================\n");
-                fileDone = true;
-                //break;
-            }// end else
+
+                      if (scanUserFile.hasNext()) {
+                         counter = scanUserFile.nextInt();
+                         System.out.print(" - " + counter);
+
+                          calcSDev.addNewDataItem(counter);
+                      }// end if
+
+
+                            else {
+                                 System.out.println("==================================================================\n");
+                                 System.out.print("\n\nDataFileFILE has been completely READ");
+                                 scanUserFile.close();
+                                 System.out.println("==================================================================\n");
+                                 fileDone = true;
+                            }// end else
+               }// end while
+
+            }
+        catch (FileNotFoundException e) {
+
+            System.out.println("------------------------------------------------");
+
+             System.out.println(e);
+             e.printStackTrace();
         }
-    }
-    catch (FileNotFoundException e) {
-
-        System.out.println("------------------------------------------------");
-
-        System.out.println(e);
-        e.printStackTrace();
-    }
 
 
-        // ... calculate the average (see example)
         theAverage = calcSDev.calcAverage();
 
-
-        // ... calculate the variance (see website)
         theVariance = calcSDev.calcVariance();
 
-
-        // ... calculate the standard deviation (square root of variance ... java math library)
         theStDeviation = calcSDev.calcStandardDeviation();
+
+        //  the range of values that contain 68% of the observations, 95% of the observations, and 99% of the observations.
+        double theRange68 = 2*(theAverage - theStDeviation);
+        double theRange95 = 2*(theAverage-2*theStDeviation);
+        double theRange99 = 2*(theAverage-3*theStDeviation);
+
+
+
+
 
 
         System.out.println("==================================================================\n");
