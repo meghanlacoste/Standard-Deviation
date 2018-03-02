@@ -20,47 +20,44 @@ public class Main {
         double theVariance = 0;
         double theStDeviation = 0;
         int counter = 0;
+        String userFileName;
 
         StDeviation calcSDev =  new StDeviation();
 
-                String userFileName;
-
-                System.out.println("");
-                System.out.println("Please type in the file name\n");
-
-                Scanner scanSystemIn = new Scanner(System.in);
-
-                      userFileName = scanSystemIn.next();
-
-        File userFile = new File("tempfilenums.txt");
-
-        Scanner scanUserFile = new Scanner("tempfilenums.txt");
-
-          System.out.println("\nThe user input: " + userFileName);
 
 
         try {
 
+            System.out.println("");
+            System.out.println("Please type in the file name\n");
 
-             while (fileDone == false){
-                //for(int counter =0; counter < MAXDATA; counter++) {
+            Scanner scanSystemIn = new Scanner(System.in);
+            userFileName = scanSystemIn.next();
 
+            File userFile = new File(userFileName);
+            Scanner scanUserFile = new Scanner(userFile);
+
+            System.out.println("\nThe user input: " + userFileName);
+
+             while (!fileDone){
 
                       if (scanUserFile.hasNext()) {
                          counter = scanUserFile.nextInt();
-                         System.out.print(" - " + counter);
+                         System.out.print(" -- " + counter);
 
                           calcSDev.addNewDataItem(counter);
-                      }// end if
-
-
-                            else {
-                                 System.out.println("==================================================================\n");
-                                 System.out.print("\n\nDataFileFILE has been completely READ");
-                                 scanUserFile.close();
-                                 System.out.println("==================================================================\n");
-                                 fileDone = true;
-                            }// end else
+                          if (counter > MAXDATA) {
+                              System.out.printf("The file chosen is too large; the file was not completely read into array");
+                          }// end if (counter>= MAXDATA)
+                      }// end (scanUserFile.hasNext())
+                      else {
+                          System.out.println();
+                         // System.out.println("==================================================================\n");
+                          System.out.print("\n\nDataFileFILE has been completely READ");
+                          scanUserFile.close();
+                          System.out.println();
+                          fileDone = true;
+                      }// end else
                }// end while
 
             }
@@ -84,15 +81,23 @@ public class Main {
         double theRange95 = 2*(theAverage-2*theStDeviation);
         double theRange99 = 2*(theAverage-3*theStDeviation);
 
+        // if counter> MaxData, print "The file chosen is too large; file not completely read into array"
+
 
 
 
 
 
         System.out.println("==================================================================\n");
+        System.out.printf("For the values found in file:");
+        System.out.println(" ");
         System.out.printf("The Average is: " + theAverage);
+        System.out.println(" ");
         System.out.printf("The Variance is: " + theVariance);
+        System.out.println(" ");
         System.out.printf("The Standard Deviation is: " + theStDeviation);
+        System.out.println(" ");
+        System.out.println();
         System.out.println("==================================================================\n");
 
         System.out.println("------------------------------------------------");
@@ -105,16 +110,7 @@ public class Main {
     // ->: read the data from the file in a loop
     //  ** add data item into data set using Standard Deviation Method to add data
 
-
     //  ->: if the data file was not read completely then display warning to user and continue
-    // -> if the file does not exist exit the program
-    // LOOP TO READ FILE
-
-    // ADD FILE TO ARRAY
-
-    // END OF FILE OR DATA IMPut
-
-
 
     //display all information neatly to the user
     //ask the user if they would like to continue
